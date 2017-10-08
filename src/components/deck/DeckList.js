@@ -15,7 +15,7 @@ class DeckList extends Component {
     _renderDeck = ({item}) => {
         return (
             <View style={styles.deck}>
-                <TouchableOpacity onPress={() => alert('click action')}>
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('IndividualDeck', item)}>
                     <DeckInfo
                         title={item.title}
                         questions={item.questions}

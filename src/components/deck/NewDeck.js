@@ -33,6 +33,13 @@ class NewDeck extends Component {
         return true
     }
 
+    _onSuccessAlertPress = () => {
+        this.props.navigation.navigate('IndividualDeck', {
+            title,
+            questions: []
+        })
+    }
+
     addDeck = () => {
         const { title } = this.state
 
@@ -48,20 +55,17 @@ class NewDeck extends Component {
 
             createNewDeck(newDeck)
 
+            this.setState({text: ''})
+
             Alert.alert(
                 'Success', 'Deck Created',
                 [
                     {
                         text: 'OK',
-                        onPress: () => this.props.navigation.navigate('IndividualDeck', {
-                            title,
-                            questions : []
-                        })
+                        onPress: this._onSuccessAlertPress
                     }
                 ]
             )
-
-            this.setState({title: ''})
         }
     }
 
