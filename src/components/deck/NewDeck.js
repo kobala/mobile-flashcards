@@ -1,13 +1,109 @@
 import React, { Component } from 'react'
-import { View } from 'react-native'
+import { View, Text, TouchableOpacity, StyleSheet,  TextInput, Alert } from 'react-native'
+import { connect } from 'react-redux'
+import  { bindActionCreators } from 'redux'
+import * as deckActions from '../../actions/deckActions'
+import { createNewDeck } from '../../utils/api'
+
 
 class NewDeck extends Component {
+    state = {
+        title: ''
+    }
+
+    _validate = (text) => {
+        const { decks } = this.props
+
+        if( !text ){
+            Alert.alert(
+                'Validation Error!',
+                'The Deck Name field is required'
+            )
+
+            return false
+        }else if(decks[text]){
+            Alert.alert(
+                'Error!',
+                'Deck Already exists in list'
+            )
+
+            return false
+        }
+
+        return true
+    }
+
+    addDeck = () => {
+        const { title } = this.state
+
+        if(this._validate(title)){
+            const newDeck = {
+                [title]: {
+                    title,
+                    questions: []
+                }
+            }
+
+            this.props.actions.addDeck(newDeck)
+
+            createNewDeck(newDeck)
+
+            Alert.alert(
+                'Success', 'Deck Created',
+                [
+                    {
+                        text: 'OK',
+                        onPress: () => this.props.navigation.navigate('IndividualDeck', {
+                            title,
+                            questions : []
+                        })
+                    }
+                ]
+            )
+
+            this.setState({title: ''})
+        }
+    }
+
     render() {
         return (
             <View>
+                <Text style={{fontSize: 30}}>What is the title of your new deck?</Text>
+
+                <TextInput
+                    value={this.state.text}
+                    style={style.input}
+                    onChangeText={title => this.setState({title})} />
+
+                <TouchableOpacity
+                    onPress={this.addDeck}>
+                    <Text>Submit</Text>
+                </TouchableOpacity>
             </View>
         )
     }
 }
 
-export default NewDeck
+const style = StyleSheet.create({
+    input: {
+        width: 300,
+        height: 44,
+        padding: 8,
+        borderWidth: 1,
+        borderColor: '#fff',
+        backgroundColor: '#fff',
+        margin: 24,
+    }
+})
+
+function mapStateToProps(state) {
+    return state
+}
+
+function mapDispatchToProps (dispatch) {
+    return {
+        actions: bindActionCreators(deckActions, dispatch)
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(NewDeck)

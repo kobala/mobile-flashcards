@@ -6,6 +6,7 @@ import { StackNavigator, TabNavigator } from 'react-navigation'
 import reducer from './reducers/index'
 import DeckList from './components/deck/DeckList'
 import NewDeck from './components/deck/NewDeck'
+import IndividualDeck from './components/deck/IndividualDeck'
 
 
 const Tabs = TabNavigator({
@@ -28,6 +29,12 @@ const AppNavigator = StackNavigator({
     Home: {
         screen: Tabs,
         navigationOptions: {title: 'Home'},
+    },
+    IndividualDeck: {
+        screen: IndividualDeck,
+        navigationOptions: {
+            headerTintColor: '#7c7e80',
+        },
     }
 })
 
