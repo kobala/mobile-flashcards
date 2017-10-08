@@ -34,10 +34,8 @@ export function setDummyData() {
     return dummyData
 }
 
-export function getDecks() {
-    return AsyncStorage.getItem(DECKS_STORAGE_KEY).then(results => {
-        return results === null
-            ? setDummyData()
-            : JSON.parse(results)
-    })
+export function getDecks(results) {
+    return results === null
+        ? setDummyData()
+        : JSON.parse(results)
 }
