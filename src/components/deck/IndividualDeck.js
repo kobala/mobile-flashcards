@@ -32,9 +32,14 @@ class IndividualDeck extends Component {
                 title={title}
                 questions={questions}
                 />
-                
+
                 <TouchableOpacity
-                    onPress={this._addCardPress}>
+                    onPress={() => {
+                        this.props.navigation.navigate('NewCard', {
+                            title,
+                            questions,
+                        })
+                    }}>
                     <Text>Add Card</Text>
                 </TouchableOpacity>
 
@@ -48,7 +53,7 @@ class IndividualDeck extends Component {
 }
 
 function mapStateToProps(decks) {
-    return decks
+    return { decks }
 }
 
 export default connect(mapStateToProps)(IndividualDeck)

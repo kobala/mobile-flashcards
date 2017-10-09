@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { View, Text, TouchableOpacity, StyleSheet,  TextInput, Alert } from 'react-native'
 import { connect } from 'react-redux'
 import  { bindActionCreators } from 'redux'
-import * as deckActions from '../../actions/deckActions'
+import * as deckActions from '../../actions/index'
 import { createNewDeck } from '../../utils/api'
 
 
@@ -33,7 +33,7 @@ class NewDeck extends Component {
         return true
     }
 
-    _onSuccessAlertPress = () => {
+    _onSuccessAlertPress = (title) => {
         this.props.navigation.navigate('IndividualDeck', {
             title,
             questions: []
@@ -43,30 +43,32 @@ class NewDeck extends Component {
     addDeck = () => {
         const { title } = this.state
 
-        if(this._validate(title)){
-            const newDeck = {
-                [title]: {
-                    title,
-                    questions: []
-                }
-            }
-
-            this.props.actions.addDeck(newDeck)
-
-            createNewDeck(newDeck)
-
-            this.setState({text: ''})
-
-            Alert.alert(
-                'Success', 'Deck Created',
-                [
-                    {
-                        text: 'OK',
-                        onPress: this._onSuccessAlertPress
-                    }
-                ]
-            )
+        if(!this._validate(title)){
+            return
         }
+
+        const newDeck = {
+            [title]: {
+                title,
+                questions: []
+            }
+        }
+
+        this.props.actions.addDeck(newDeck)
+
+        createNewDeck(newDeck)
+
+        this.setState({title: ''})
+
+        Alert.alert(
+            'Success', 'Deck Created',
+            [
+                {
+                    text: 'OK',
+                    onPress: this._onSuccessAlertPress(title)
+                }
+            ]
+        )
     }
 
     render() {
@@ -100,8 +102,8 @@ const style = StyleSheet.create({
     }
 })
 
-function mapStateToProps(state) {
-    return state
+function mapStateToProps(decks) {
+    return { decks }
 }
 
 function mapDispatchToProps (dispatch) {

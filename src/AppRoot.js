@@ -7,6 +7,7 @@ import reducer from './reducers/index'
 import DeckList from './components/deck/DeckList'
 import NewDeck from './components/deck/NewDeck'
 import IndividualDeck from './components/deck/IndividualDeck'
+import NewCard from './components/card/NewCard'
 
 
 const Tabs = TabNavigator({
@@ -33,8 +34,15 @@ const AppNavigator = StackNavigator({
     IndividualDeck: {
         screen: IndividualDeck,
         navigationOptions: {
-            headerTintColor: '#7c7e80',
-        },
+            headerTintColor: '#7c7e80'
+        }
+    },
+    NewCard: {
+        screen: NewCard,
+        navigationOptions: {
+            title: 'Add Card',
+            headerTintColor: '#7c7e80'
+        }
     }
 })
 

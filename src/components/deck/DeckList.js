@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { View, TouchableOpacity, StyleSheet, Dimensions, FlatList } from 'react-native'
 import { connect } from 'react-redux'
-import { getDecks } from '../../actions/deckActions'
+import { getDecks } from '../../actions/index'
 import { fetchDeckResults } from '../../utils/api'
 import DeckInfo from './DeckInfo'
 
@@ -28,7 +28,7 @@ class DeckList extends Component {
     _keyExtractor = (item, index) => index
 
     render() {
-        const decks = Object.values(this.props.decks).sort((a, b) => a.title > b.title)
+        const decks = Object.values(this.props.decks)
 
         return (
             <View>
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
 })
 
 function mapStateToProps(decks) {
-    return decks
+    return { decks }
 }
 
 export default connect(mapStateToProps)(DeckList)
