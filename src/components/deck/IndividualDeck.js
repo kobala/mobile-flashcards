@@ -13,13 +13,6 @@ function IndividualDeckInfo({ title, questions }) {
 }
 
 class IndividualDeck extends Component {
-    _addCardPress = () => {
-
-    }
-
-    _startQuizPress = () => {
-
-    }
 
     render() {
         const { title } = this.props.navigation.state.params
@@ -44,7 +37,12 @@ class IndividualDeck extends Component {
                 </TouchableOpacity>
 
                 <TouchableOpacity
-                    onPress={this._startQuizPress}>
+                    onPress={() => {
+                        this.props.navigation.navigate('Quiz', {
+                            title,
+                            questions,
+                        })
+                    }}>
                     <Text>Start Quiz</Text>
                 </TouchableOpacity>
             </View>

@@ -8,6 +8,7 @@ import DeckList from './components/deck/DeckList'
 import NewDeck from './components/deck/NewDeck'
 import IndividualDeck from './components/deck/IndividualDeck'
 import NewCard from './components/card/NewCard'
+import Quiz from './components/quiz/Quiz'
 
 
 const Tabs = TabNavigator({
@@ -41,6 +42,13 @@ const AppNavigator = StackNavigator({
         screen: NewCard,
         navigationOptions: {
             title: 'Add Card',
+            headerTintColor: '#7c7e80'
+        }
+    },
+    Quiz: {
+        screen: Quiz,
+        navigationOptions: {
+            title: 'Quiz',
             headerTintColor: '#7c7e80'
         }
     }
