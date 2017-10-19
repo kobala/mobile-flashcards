@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { View, StyleSheet, Text, TouchableOpacity } from 'react-native'
-import Video from "expo/src/Video";
+import Finish from './Finish'
 
 class Quiz extends Component {
     state = {
@@ -27,14 +27,6 @@ class Quiz extends Component {
 
     onFlipCard = () => this.setState(state => ({flipCard: !state.flipCard}))
 
-    getGrade = () => {
-        const { questions } = this.props.navigation.state.params
-
-        const { correctAnswersCount } = this.state
-
-        return (correctAnswersCount / questions.length * 100).toFixed(2)
-    }
-
     resetQuiz = () => {
         this.setState({
             currentCardIndex: 0,
@@ -60,34 +52,12 @@ class Quiz extends Component {
             <View>
 
                 {isQuizFinished ? (
-                    <View>
-                        <Text>Total questions: {questions.count}</Text>
-                        <Text>Correct Answers: {correctAnswersCount}</Text>
-                        <Text>Incorrect Answers: {questions.length - correctAnswersCount}</Text>
-                        <Text>Percentage correct once: { this.getGrade() } %</Text>
-                        <View style={{alignItems: 'center', justifyContent: 'space-around', flex: 2}}>
-                            <View style={styles.container}>
-
-                                <TouchableOpacity onPress={() => this.resetQuiz()}>
-                                    <Text style={{
-                                        justifyContent: 'center',
-                                        textAlign: 'center',
-                                        width: 100,
-                                        height: 40
-                                    }}>Reset Quiz</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity onPress={() => this.toDeck()}>
-                                    <Text style={{
-                                        justifyContent: 'center',
-                                        textAlign: 'center',
-                                        marginTop: 30,
-                                        width: 100,
-                                        height: 40
-                                    }}>Back to Deck</Text>
-                                </TouchableOpacity>
-                            </View>
-                        </View>
-                    </View>
+                    <Finish
+                        questions={questions}
+                        correctAnswersCount={correctAnswersCount}
+                        resetQuiz={this.resetQuiz}
+                        toDeck={this.toDeck}
+                    />
                 ) : (
                     <View style={styles.container}>
 
@@ -97,30 +67,24 @@ class Quiz extends Component {
                             </View>
                         </View>
 
-                        <View>
-                            <View>
-                                <View>
-                                    {flipCard ? (
-                                        <View style={{alignItems: 'center'}}>
-                                            <Text style={{fontSize: 30}}>{questions[currentCardIndex].answer}</Text>
+                        {flipCard ? (
+                            <View style={{alignItems: 'center'}}>
+                                <Text style={{fontSize: 30}}>{questions[currentCardIndex].answer}</Text>
 
-                                            <TouchableOpacity onPress={() => this.onFlipCard()}>
-                                                <Text>Question</Text>
-                                            </TouchableOpacity>
+                                <TouchableOpacity onPress={() => this.onFlipCard()}>
+                                    <Text>Question</Text>
+                                </TouchableOpacity>
 
-                                        </View>) : (
-                                        <View style={{alignItems: 'center'}}>
-                                            <Text style={{fontSize: 30}}>{questions[currentCardIndex].question}</Text>
+                            </View>) : (
+                            <View style={{alignItems: 'center'}}>
+                                <Text style={{fontSize: 30}}>{questions[currentCardIndex].question}</Text>
 
-                                            <TouchableOpacity onPress={() => this.onFlipCard()}>
-                                                <Text>Answer</Text>
-                                            </TouchableOpacity>
+                                <TouchableOpacity onPress={() => this.onFlipCard()}>
+                                    <Text>Answer</Text>
+                                </TouchableOpacity>
 
-                                        </View>
-                                    )}
-                                </View>
                             </View>
-                        </View>
+                        )}
 
                         <View>
                             <View>
