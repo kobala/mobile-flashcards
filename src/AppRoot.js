@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Provider } from 'react-redux'
-import { View, Platform } from 'react-native'
+import { View, Platform, StatusBar } from 'react-native'
 import { createStore } from 'redux'
 import { StackNavigator, TabNavigator } from 'react-navigation'
 import reducer from './reducers/index'
@@ -11,6 +11,16 @@ import NewCard from './components/card/NewCard'
 import Quiz from './components/quiz/Quiz'
 import { FontAwesome, Ionicons } from '@expo/vector-icons'
 import { white, black, yellow, gray } from './utils/colors'
+import { Constants } from 'expo'
+
+function FlashCardsStatusBar ({backgroundColor, ...props}) {
+    return (
+        <View style={{ backgroundColor, height: Constants.statusBarHeight }}>
+            <StatusBar translucent backgroundColor={backgroundColor} {...props} />
+        </View>
+    )
+}
+
 
 const Tabs = TabNavigator({
         DeckList: {
@@ -90,6 +100,7 @@ export default class AppRoot extends Component {
         return (
             <Provider store={createStore(reducer)}>
                 <View style={{ flex: 1 }}>
+                    <FlashCardsStatusBar backgroundColor={gray} barStyle="light-content" />
                     <AppNavigator />
                 </View>
             </Provider>
