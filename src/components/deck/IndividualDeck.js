@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
+import { View, Text, TouchableOpacity, StyleSheet, Alert } from 'react-native'
 import { connect } from 'react-redux'
 import { white, black, gray } from '../../styles/colors'
 import commonStyles from '../../styles/common'
@@ -15,6 +15,21 @@ function IndividualDeckInfo({ title, questions }) {
 }
 
 class IndividualDeck extends Component {
+    _startQuiz = ({ title, questions}) => {
+        if(!questions.length){
+            Alert.alert(
+                'Error occurred!',
+                'Deck is empty'
+            )
+
+            return
+        }
+
+        this.props.navigation.navigate('Quiz', {
+            title,
+            questions,
+        })
+    }
 
     render() {
         const { title } = this.props.navigation.state.params
@@ -41,12 +56,7 @@ class IndividualDeck extends Component {
 
                 <TouchableOpacity
                     style={commonStyles.button}
-                    onPress={() => {
-                        this.props.navigation.navigate('Quiz', {
-                            title,
-                            questions,
-                        })
-                    }}>
+                    onPress={() => this._startQuiz({ title, questions })}>
                     <Text style={commonStyles.buttonText}>Start Quiz</Text>
                 </TouchableOpacity>
             </View>
