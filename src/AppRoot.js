@@ -10,7 +10,7 @@ import IndividualDeck from './components/deck/IndividualDeck'
 import NewCard from './components/card/NewCard'
 import Quiz from './components/quiz/Quiz'
 import { FontAwesome, Ionicons } from '@expo/vector-icons'
-import { white, black, yellow, gray } from './utils/colors'
+import { white, black, yellow, gray } from './styles/colors'
 import { Constants } from 'expo'
 
 function FlashCardsStatusBar ({backgroundColor, ...props}) {

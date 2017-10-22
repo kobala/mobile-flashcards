@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { View, StyleSheet, Text, TouchableOpacity } from 'react-native'
 import Finish from './Finish'
+import { green, red, white } from '../../styles/colors'
+import commonStyles from '../../styles/common'
 
 class Quiz extends Component {
     state = {
@@ -59,7 +61,7 @@ class Quiz extends Component {
                         toDeck={this.toDeck}
                     />
                 ) : (
-                    <View style={styles.container}>
+                    <View>
 
                         <View>
                             <View>
@@ -72,7 +74,7 @@ class Quiz extends Component {
                                 <Text style={{fontSize: 30}}>{questions[currentCardIndex].answer}</Text>
 
                                 <TouchableOpacity onPress={() => this.onFlipCard()}>
-                                    <Text>Question</Text>
+                                    <Text style={styles.flipBtn}>Question</Text>
                                 </TouchableOpacity>
 
                             </View>) : (
@@ -80,19 +82,25 @@ class Quiz extends Component {
                                 <Text style={{fontSize: 30}}>{questions[currentCardIndex].question}</Text>
 
                                 <TouchableOpacity onPress={() => this.onFlipCard()}>
-                                    <Text>Answer</Text>
+                                    <Text style={styles.flipBtn}>Answer</Text>
                                 </TouchableOpacity>
 
                             </View>
                         )}
 
-                        <View>
+                        <View style={{alignItems: 'center', marginTop: 40}}>
                             <View>
-                                <TouchableOpacity onPress={() => this.onStatementPress('correct')}>
-                                    <Text>Correct</Text>
+                                <TouchableOpacity
+                                    style={[commonStyles.button, { backgroundColor: green }]}
+                                    onPress={() => this.onStatementPress('correct')}
+                                >
+                                    <Text style={[commonStyles.buttonText, { color: white }]}>Correct</Text>
                                 </TouchableOpacity>
-                                <TouchableOpacity onPress={() => this.onStatementPress('incorrect')}>
-                                    <Text>Incorrect</Text>
+                                <TouchableOpacity
+                                    style={[commonStyles.button, { backgroundColor: red }]}
+                                    onPress={() => this.onStatementPress('incorrect')}
+                                >
+                                    <Text style={[commonStyles.buttonText, { color: white }]}>Incorrect</Text>
                                 </TouchableOpacity>
 
                             </View>
@@ -108,7 +116,12 @@ class Quiz extends Component {
 }
 
 const styles = StyleSheet.create({
-
+    flipBtn: {
+        color: red,
+        fontSize: 20,
+        margin: 20,
+        fontWeight: 'bold'
+    }
 })
 
 export default Quiz

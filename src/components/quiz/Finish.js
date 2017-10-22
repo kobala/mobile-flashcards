@@ -1,5 +1,6 @@
 import React from 'react'
 import { View, Text, TouchableOpacity } from 'react-native'
+import commonStyles from '../../styles/common'
 
 function Finish({questions, correctAnswersCount, resetQuiz, toDeck}) {
     getGrade = (questionsCount, correctAnswers) => (correctAnswers / questionsCount * 100).toFixed(2)
@@ -10,24 +11,19 @@ function Finish({questions, correctAnswersCount, resetQuiz, toDeck}) {
             <Text>Correct Answers: {correctAnswersCount}</Text>
             <Text>Incorrect Answers: {questions.length - correctAnswersCount}</Text>
             <Text>Percentage correct once: { this.getGrade(questions.length, correctAnswersCount) } %</Text>
-            <View style={{alignItems: 'center', justifyContent: 'space-around', flex: 2}}>
+            <View>
                 <View>
-                    <TouchableOpacity onPress={resetQuiz}>
-                        <Text style={{
-                            justifyContent: 'center',
-                            textAlign: 'center',
-                            width: 100,
-                            height: 40
-                        }}>Reset Quiz</Text>
+                    <TouchableOpacity
+                        style={commonStyles.button}
+                        onPress={resetQuiz}
+                    >
+                        <Text style={commonStyles.buttonText}>Reset Quiz</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={toDeck}>
-                        <Text style={{
-                            justifyContent: 'center',
-                            textAlign: 'center',
-                            marginTop: 30,
-                            width: 100,
-                            height: 40
-                        }}>Back to Deck</Text>
+                    <TouchableOpacity
+                        style={commonStyles.button}
+                        onPress={toDeck}
+                    >
+                        <Text style={commonStyles.buttonText}>Back to Deck</Text>
                     </TouchableOpacity>
                 </View>
             </View>

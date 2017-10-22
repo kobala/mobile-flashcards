@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, TextInput, Alert } from 'react-native'
+import { View, Text, TouchableOpacity, TextInput, Alert } from 'react-native'
 import { connect } from 'react-redux'
 import  { bindActionCreators } from 'redux'
 import * as deckActions from '../../actions/index'
 import { addCardToDeck } from '../../utils/api'
+import commonStyles from '../../styles/common'
 
 class NewDeck extends Component {
     state = {
@@ -56,21 +57,24 @@ class NewDeck extends Component {
         const { question, answer } = this.state
 
         return (
-            <View>
+            <View style={commonStyles.container}>
                 <Text>Enter Question</Text>
                 <TextInput
+                    style={commonStyles.input}
                     defaultValue="Question"
                     value={question}
                     onChangeText={question => this.setState({question})}/>
                 <Text>Enter Answer</Text>
                 <TextInput
+                    style={commonStyles.input}
                     defaultValue="Answer"
                     value={answer}
                     onChangeText={answer => this.setState({answer})}/>
 
                 <TouchableOpacity
+                    style={commonStyles.button}
                     onPress={this.addNewCard}>
-                    <Text>Submit</Text>
+                    <Text style={commonStyles.buttonText}>Submit</Text>
                 </TouchableOpacity>
 
             </View>

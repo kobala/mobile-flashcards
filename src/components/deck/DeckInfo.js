@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { View, StyleSheet, Text, Dimensions } from 'react-native'
+import { white, gray } from '../../styles/colors'
 
 class DeckInfo extends Component {
     render() {
@@ -21,10 +22,11 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#fff',
-        marginTop: 10,
+        backgroundColor: white,
         height: 115,
-        width: Dimensions.get('window').width
+        width: Dimensions.get('window').width,
+        borderBottomColor: gray,
+        borderBottomWidth: StyleSheet.hairlineWidth
     },
     deckInside: {
         justifyContent: 'center',

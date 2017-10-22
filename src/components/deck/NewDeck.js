@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
-import { View, Text, TouchableOpacity, StyleSheet,  TextInput, Alert } from 'react-native'
+import { View, Text, TouchableOpacity, TextInput, Alert } from 'react-native'
 import { connect } from 'react-redux'
 import  { bindActionCreators } from 'redux'
 import * as deckActions from '../../actions/index'
 import { createNewDeck } from '../../utils/api'
+import commonStyles from '../../styles/common'
 
 
 class NewDeck extends Component {
@@ -73,34 +74,23 @@ class NewDeck extends Component {
 
     render() {
         return (
-            <View>
+            <View style={commonStyles.container}>
                 <Text style={{fontSize: 30}}>What is the title of your new deck?</Text>
 
                 <TextInput
                     value={this.state.text}
-                    style={style.input}
+                    style={commonStyles.input}
                     onChangeText={title => this.setState({title})} />
 
                 <TouchableOpacity
+                    style={commonStyles.button}
                     onPress={this.addDeck}>
-                    <Text>Submit</Text>
+                    <Text style={commonStyles.buttonText}>Submit</Text>
                 </TouchableOpacity>
             </View>
         )
     }
 }
-
-const style = StyleSheet.create({
-    input: {
-        width: 300,
-        height: 44,
-        padding: 8,
-        borderWidth: 1,
-        borderColor: '#fff',
-        backgroundColor: '#fff',
-        margin: 24,
-    }
-})
 
 function mapStateToProps(decks) {
     return { decks }
