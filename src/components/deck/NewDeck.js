@@ -78,7 +78,7 @@ class NewDeck extends Component {
                 <Text style={{fontSize: 30}}>What is the title of your new deck?</Text>
 
                 <TextInput
-                    value={this.state.text}
+                    value={this.state.title}
                     style={commonStyles.input}
                     onChangeText={title => this.setState({title})} />
 
